@@ -21,15 +21,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	}
 
-
-
-
 	@Transactional
 	public Category get(String id) {
 		String hql = "from Category where id=" + "'" + id + "'";
 		@SuppressWarnings("unchecked")
 		Query<Category> query = sessionFactory.getCurrentSession().createQuery(hql);
-	
+
 		List<Category> listCategory = query.getResultList();
 		if (listCategory != null && !listCategory.isEmpty()) {
 			return listCategory.get(0);
@@ -51,10 +48,10 @@ public class CategoryDAOImpl implements CategoryDAO {
 		sessionFactory.getCurrentSession().delete(CategoryToDelete);
 
 	}
-	
+
 	@Transactional
 	public List<Category> list() {
-	
+
 		@SuppressWarnings({ "unchecked", "deprecation" })
 		List<Category> listCategory = (List<Category>) sessionFactory.getCurrentSession().createCriteria(Category.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();

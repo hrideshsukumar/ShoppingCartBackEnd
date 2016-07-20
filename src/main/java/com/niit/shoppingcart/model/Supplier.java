@@ -9,16 +9,17 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="supplier")
+@Table
 @Component
 public class Supplier {
+	@Id
 	private String id;
 	@Column(name="name")
 	private String name;
 	@Column(name="address")
 	private String address;
 
-	@Id
+	
 	public String getId() {
 		return id;
 	}
