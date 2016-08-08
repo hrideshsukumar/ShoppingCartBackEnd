@@ -1,9 +1,13 @@
 package com.niit.shoppingcart;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.shoppingcart.dao.CategoryDAO;
 import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.Product;
 
 public class CategoryTest {
 
@@ -24,6 +28,8 @@ public class CategoryTest {
 	    // categoryDAO.delete("CG01"); --> Delete Operation
 		
 	    //Retrieve Operation
+	    
+	   System.out.println(categoryDAO.get("CG01").getProducts());
 	    if(categoryDAO.get("CG01")== null)
 		{
 			System.out.println("Category does not exist");
@@ -33,6 +39,20 @@ public class CategoryTest {
 			System.out.println("Category exists..");
 			System.out.println();
 		} 
+	
+	
+	List<Category>  list =    categoryDAO.list();
+	
+	for(Category c : list) {
+		System.out.println(c.getId() + ":" + c.getName() + ":" + c.getDescription() );
+		Set<Product> products  = c.getProducts();
+		for(Product p : products) {
+			System.out.println("Product :" + p.getId() + ":" + p.getName()+ ":" + p.getDescription());
+		}
+		
+		
+		
 	}
-
+	
+	}
 }

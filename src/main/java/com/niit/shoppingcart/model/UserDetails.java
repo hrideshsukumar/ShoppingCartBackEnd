@@ -10,34 +10,23 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table
 @Component
-public class User {
+public class UserDetails {
 	@Id
 	private String id;
-	
+	@Column(name = "name")
 	private String name;
-	
+	@Column(name = "address")
 	private String address;
-	
+	@Column(name = "password")
 	private String password;
 
-
+	@Column(name = "mail")
 	private String mail;
 	
-	
+	@Column(name = "mobile")
 	private String mobile;
-	// update user set admin=1 where name = 'admin'
-	@Column(name = "admin" , columnDefinition= "tinyinit default 0")
-	private byte admin;
 
 	
-
-	public byte getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(byte admin) {
-		this.admin = admin;
-	}
 
 	public String getMobile() {
 		return mobile;

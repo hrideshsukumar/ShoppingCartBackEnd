@@ -57,5 +57,20 @@ public class UserDAOImpl implements UserDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return listUser;
 	}
+	@Transactional
+	public boolean isValidCredentials(String userName,String password) {
+		
+		String hql = "from User where id = '"+userName+"' and password = '"+password+"'";
+		@SuppressWarnings("unchecked")
+		Query<User> q = sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("deprecation")
+		List<User> list=q.list();
+		if(list == null || list.isEmpty()) {
+			return false;
+		}
+		else {
+		return true;
+		}
+	}
 
 }

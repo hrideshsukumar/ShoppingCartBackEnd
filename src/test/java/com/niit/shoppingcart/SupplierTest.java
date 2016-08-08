@@ -1,8 +1,12 @@
 package com.niit.shoppingcart;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.shoppingcart.dao.SupplierDAO;
+import com.niit.shoppingcart.model.Product;
 import com.niit.shoppingcart.model.Supplier;
 
 public class SupplierTest {
@@ -23,7 +27,7 @@ public class SupplierTest {
 		System.out.println("NO of suppliers:"+supplierDAO.list().size());
 	   
 		// supplierDAO.delete("SP8194"); -->Delete Operation 
-		
+		  
 	    //Retrieve Operation
 	    if(supplierDAO.get("CG01")== null)
 		{
@@ -34,6 +38,17 @@ public class SupplierTest {
 			System.out.println("Supplier exists..");
 			System.out.println();
 		} 
+	    
+	    List<Supplier> list = supplierDAO.list();
+	    
+	    for(Supplier s : list) {
+	    	System.out.println(s.getId() + ":" + s.getName() + ":" + s.getAddress());
+	    	Set<Product> products = s.getProducts();
+	    	
+	    	for(Product p : products) {
+	    		System.out.println("Product :" + p.getId() + ":" + p.getName() + ":" + p.getPrice() + ":" + p.getDescription());
+	    	}
+	    }
 	}
 
 }

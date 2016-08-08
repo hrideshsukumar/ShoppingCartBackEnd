@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.niit.shoppingcart.model.User;
 
-public interface UserDAO {
+public interface UserDetailsDAO {
 	public List<User> list();
 
 	public User get(String id);
@@ -13,5 +13,4 @@ public interface UserDAO {
 
 	public void delete(String id);
 
-	public boolean isValidCredentials(String userName, String password);
 }

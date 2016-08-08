@@ -17,11 +17,13 @@ public class UserTest {
 		
 		// Create Operation
 	    user.setId("Sutta");
-		user.setName("Hridesh");
-		user.setAddress("THRISSUR");
+		user.setName("Hridesh Sukumar N H");
+		user.setAddress("Thrissur");
 		user.setPassword("adima123");
 		user.setMail("hrideshh@yahoo.co.in");
 	    user.setMobile("9544151378");
+	    user.setAdmin((byte) 1);
+	
 	    userDAO.saveOrUpdate(user);
 		System.out.println("NO of users:"+userDAO.list().size());
 	   
@@ -37,6 +39,14 @@ public class UserTest {
 			System.out.println("User exists..");
 			System.out.println();
 		} 
+	    
+	    // Validation Test
+	    if(userDAO.isValidCredentials("Achi", "achi123")== true) {
+	    	System.out.println("Valid user");
+	    }
+	    else{
+	    	System.out.println("Invalid Credentials");
+	    }
 	}
 
 }

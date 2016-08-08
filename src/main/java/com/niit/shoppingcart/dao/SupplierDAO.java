@@ -8,6 +8,8 @@ public interface SupplierDAO {
 	public List<Supplier> list();
 
 	public Supplier get(String id);
+	
+	public Supplier getByName(String name);
 
 	public void saveOrUpdate(Supplier supplier);
 
