@@ -1,7 +1,11 @@
 package com.niit.shoppingcart.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -11,18 +15,31 @@ import org.springframework.stereotype.Component;
 @Table
 @Component
 public class Cart {
-	@Id
+	@Id  @GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
 	
 	@Transient
 	private int total;
 	
-	private int productName;
+	private String productName;
 	private int price;
 	private int quantity;
-	private int status;
-	private String userID;
+	private char status;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id" )
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "product_id" )
+	private Product product;
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	public int getId() {
 		return id;
@@ -36,12 +53,7 @@ public class Cart {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	public int getProductName() {
-		return productName;
-	}
-	public void setProductName(int productName) {
-		this.productName = productName;
-	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -54,18 +66,27 @@ public class Cart {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public int getStatus() {
+	
+	public char getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(char status) {
 		this.status = status;
 	}
-	public String getUserID() {
-		return userID;
+	public String getProductName() {
+		return productName;
 	}
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	
 	
 
 }

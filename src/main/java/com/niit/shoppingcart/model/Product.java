@@ -1,10 +1,14 @@
 package com.niit.shoppingcart.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,6 +29,9 @@ public class Product {
 	private int price;
 	@Transient
 	private MultipartFile image;
+	
+	@OneToMany(mappedBy="product",fetch=FetchType.EAGER)
+	private Set<Cart> cart;
 	
 	public MultipartFile getImage() {
 		return image;
@@ -110,4 +117,13 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Set<Cart> getCart() {
+		return cart;
+	}
+
+	public void setCart(Set<Cart> cart) {
+		this.cart = cart;
+	}
+	
 }

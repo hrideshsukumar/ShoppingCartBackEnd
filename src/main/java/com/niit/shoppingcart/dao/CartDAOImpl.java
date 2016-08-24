@@ -37,9 +37,9 @@ public class CartDAOImpl implements CartDAO{
 
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
-	@Override
-	public Cart get(String id) {
-		String hql = "from Cart where userID = '" + id + "' and status = 'N'";
+	@Transactional
+	public Cart get(int id) {
+		String hql = "from Cart where id = '" + id + "' and status = 'N'";
 		Query<Cart> query = sessionFactory.getCurrentSession().createQuery(hql);
 		
 		
@@ -52,18 +52,19 @@ public class CartDAOImpl implements CartDAO{
 		return null;
 	}
 
-	@Override
+	@Transactional
 	public void saveOrUpdate(Cart cart) {
 		sessionFactory.getCurrentSession().saveOrUpdate(cart);
 		
 	}
 
-	@Override
-	public String delete(String id) {
-		cart.setUserID(id);
+	@Transactional
+	public String delete(int id) {
+		Cart cartToDelete = new Cart();
+		cartToDelete.setId(id);
 		
 			try {
-				sessionFactory.getCurrentSession().delete(cart);
+				sessionFactory.getCurrentSession().delete(cartToDelete);
 			} catch (HibernateException e) {
 				
 				e.printStackTrace();
@@ -73,14 +74,55 @@ public class CartDAOImpl implements CartDAO{
 		return null;
 	}
 
-	@SuppressWarnings({ "deprecation", "unchecked", "unused" })
-	@Override
-	public int getTotalAmount(String id) {
-		String hql = "select sum(price) from Cart where userID = '" + id + "'";
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@Transactional
+	public long getTotalAmount(String id) {
+		String hql = "select sum(price) from Cart where user_ID = '" + id + "' and status = 'N'";
 		
 		Query<Cart> query = sessionFactory.getCurrentSession().createQuery(hql);
+         
+          List list = query.list();
+          long total = (long) list.get(0);
+          if(list!=null && !list.isEmpty()) {
+		return total;
+          }
+          return 0;
+	}
+	
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@Transactional
+	public Cart getByUserId(String uID) {
+		String hql = "from Cart where user_id = '" + uID + "' and status = 'N'";
+		Query<Cart> query = sessionFactory.getCurrentSession().createQuery(hql);
 		
-		return 0;
+		
+		List<Cart> list = query.list();
+		
+		if(list!=null && !list.isEmpty()) {
+			
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+	@Transactional
+	public List<Cart> userCartList(String uID) {
+		String hql = "from Cart where user_id = '" + uID + "' and status = 'N'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		
+		List<Cart> list = query.list();
+		
+		return list;
+		
+      
+	}
+
+	@Transactional
+	public void checkOut(String uID) {
+		String hql = "update Cart set status = 'Y' where user_id ='" + uID + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.executeUpdate();
 	}
 
 }

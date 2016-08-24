@@ -8,12 +8,20 @@ public interface CartDAO {
 	
 	public List<Cart> list();
 	
-	public Cart get(String id);
+	public List<Cart> userCartList(String uID);
+	
+	public Cart get(int id);
+	
+	public Cart getByUserId(String uID);
 	
 	public void saveOrUpdate(Cart cart);
 	
-	public String delete(String id);
+	public String delete(int id);
 	
-	public int getTotalAmount(String id);
+	public long getTotalAmount(String id);
+	
+	public void checkOut(String uID);
+	
+	
 
 }
